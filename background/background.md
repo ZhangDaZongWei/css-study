@@ -52,6 +52,8 @@
 
 **⚠️ 注意**：当背景图片尺寸大于容器尺寸时，百分比值会导致图片向相反方向偏移，就好像设置了负值。
 
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-position.html](https://zhangdazongwei.github.io/css-study/background/examples/background-position.html)
+
 ### background-origin
 
 设置背景图片定位的起点（即`background-position` 的参考原点）。
@@ -63,6 +65,8 @@
 | `content-box` | 从 content 的外边缘（padding 内边缘）开始 |
 
 **⚠️ 注意: 这只是更改背景图片左上角的参考位置，而不会裁剪图片（使用background-clip实现）。**
+
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-origin.html](https://zhangdazongwei.github.io/css-study/background/examples/background-origin.html)
 
 ### background-clip
 
@@ -84,6 +88,8 @@
 
 ![canuse-border-area](./examples/images/canuse-border-area.jpg)
 
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-clip.html](https://zhangdazongwei.github.io/css-study/background/examples/background-clip.html)
+
 ### background-size
 
 设置背景图片的尺寸。
@@ -104,6 +110,8 @@
 - `background-size: 100px auto`：宽度固定100px，高度按比例自动计算
 
 **⚠️ 注意**：如果背景图片没有固定宽高，设置auto时就相当于contain；
+
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-size.html](https://zhangdazongwei.github.io/css-study/background/examples/background-size.html)
 
 ### background-repeat
 
@@ -161,6 +169,8 @@
 
 **使用场景**：适合需要完全填满背景区域，且可以接受图片变形的场景。
 
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-repeat.html](https://zhangdazongwei.github.io/css-study/background/examples/background-repeat.html)
+
 ### background-attachment
 
 设置背景图片的附着方式。
@@ -169,6 +179,8 @@
 |---|---|
 | `scroll` | 默认值，背景图随页面滚动 |
 | `fixed` | 背景图固定不动（仅在 html 和 body 标签上生效） |
+
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/background-attachment.html](https://zhangdazongwei.github.io/css-study/background/examples/background-attachment.html)
 
 ---
 
@@ -218,6 +230,8 @@
 **需求**：创建一个如下标题背景，宽度随着内容变长。
 
 ![prototype](./examples/images/prototype.jpg)
+
+**📖 示例演示**：[https://zhangdazongwei.github.io/css-study/background/examples/multi-background.html](https://zhangdazongwei.github.io/css-study/background/examples/multi-background.html)
 
 ## ✅ 最佳实践
 
