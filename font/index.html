@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: FZSSJT-Regular;
+            src: url(https://jy.gsxcdn.com/fe/mis/font/FangZhengShuSongJianTi.ttf)
+        }
+
+        @font-face {
+            font-family: FZLTHProGlobal-Bold;
+            src: url(https://jy.gsxcdn.com/fe/project/lecture/FZLTHProGlobal-Bold.woff),url(https://jy.gsxcdn.com/fe/mis/font/FZLTHProGlobal-Bold.TTF);
+        }
+
+        body {
+            --FZLTH-Bold: FZLTHProGlobal-Bold;
+        }
+
+        div {
+            font-size: 20px;
+            font-display: swap;
+        }
+
+        .font1 {
+            font-family: FZSSJT-Regular;
+        }
+
+        .font2 {
+            display: none;
+            font-family: var(--FZLTH-Bold);
+        }
+    </style>
+</head>
+<body>
+    <div class="font1">Hello World</div>
+    <div class="font2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</div>
+</body>
+</html>

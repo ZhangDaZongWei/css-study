@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多背景图案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-box {
+            display: inline-block;
+            min-width: 325pt;
+            height: 60pt;
+            padding-left: 10pt;
+            background-image: url(./images/course-title-left.svg), url(./images/course-title-center.svg), url(./images/course-title-right.svg);
+            background-size: 80pt 60pt, auto 50pt, 33pt 50pt;
+            background-repeat: no-repeat, repeat-x, no-repeat;
+            background-position: 0 0, 80pt 5pt, 100% calc(100% - 5pt);
+            background-clip: border-box, content-box, border-box;
+        }
+
+        .demo-box div {
+            padding: 20pt 40pt 10pt 80pt;
+        }
+
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .code pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .code code {
+            display: block;
+            color: #f8f8f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <div class="demo-box">
+                <div>这是一段文本这是一段文本</div>
+            </div>
+        </div>
+        <div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <div>这是一段比较长的文本内容，用来演示自适应效果</div>
+            </div>
+        </div>
+        <div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <div>这是一段非常长的文本内容，用来演示自适应效果，中间部分会自动重复填充，展示多背景图的灵活性</div>
+            </div>
+        </div>
+        <div class="code">
+            <pre><code>.demo-box {
+    display: inline-block;
+    min-width: 325pt;
+    height: 60pt;
+    padding-left: 10pt;
+    
+    /* 多背景图：左侧、中间、右侧，按从下到上的顺序叠加 */
+    background-image: 
+        url('./images/course-title-left.svg'),    /* 左侧装饰图 */
+        url('./images/course-title-center.svg'),   /* 中间重复图 */
+        url('./images/course-title-right.svg');    /* 右侧装饰图 */
+    
+    /* 背景图尺寸：分别对应三张图片 */
+    background-size: 
+        80pt 60pt,      /* 左侧图：固定尺寸 */
+        auto 50pt,      /* 中间图：高度固定50pt，宽度auto保持宽高比，可横向拉伸 */
+        33pt 50pt;      /* 右侧图：固定尺寸 */
+    
+    /* 背景图重复方式：分别对应三张图片 */
+    background-repeat: 
+        no-repeat,      /* 左侧图：不重复 */
+        repeat-x,       /* 中间图：横向重复，实现自适应填充 */
+        no-repeat;      /* 右侧图：不重复 */
+    
+    /* 背景图位置：分别对应三张图片 */
+    background-position: 
+        0 0,                                    /* 左侧图：左上角 */
+        80pt 5pt,                              /* 中间图：距离左侧80pt，距离顶部5pt */
+        100% calc(100% - 5pt);                 /* 右侧图：右侧对齐，距离底部5pt */
+    
+    /* 背景图裁剪区域：分别对应三张图片 */
+    background-clip: 
+        border-box,     /* 左侧图：延伸到边框区域 */
+        content-box,    /* 中间图：仅在内容区域显示 */
+        border-box;     /* 右侧图：延伸到边框区域 */
+}</code></pre>
+        </div>
+    </div>
+</body>
+
+</html>

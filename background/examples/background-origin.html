@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-origin 案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 展示区域包装器 */
+        .display-wrapper {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            margin: 30px auto;
+            padding: 0;
+        }
+
+        .display-area {
+            width: 500px;
+            height: 350px;
+            border-radius: 8px;
+            background-image: url('images/leopard.jpg');
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+            background-color: #1a4d2e;
+            position: relative;
+            transition: background-origin 0.3s ease;
+            margin: 0 auto;
+            /* 明显的 padding 和 border 来展示效果 */
+            padding: 40px;
+            border: 20px dashed rgba(255, 107, 107, 0.8);
+        }
+
+        /* 尺寸说明 */
+        .size-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(71, 166, 55, 0.1);
+            border: 1px solid #47a637;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #2d6a1f;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .size-info strong {
+            color: #47a637;
+        }
+
+        /* 按钮组容器 - 水平排列在展示区域下方 */
+        .btn-group-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        .origin-btn {
+            padding: 12px 20px;
+            background: #47a637;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+        }
+
+        .origin-btn:hover {
+            background: #3d8b2e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(71, 166, 55, 0.3);
+        }
+
+        .origin-btn.active {
+            background: #2d6a1f;
+            box-shadow: 0 0 0 3px rgba(71, 166, 55, 0.3);
+        }
+
+        .current-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px auto;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+        }
+
+        .current-code code {
+            color: #47a637;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 尺寸说明 -->
+        <div class="size-info">
+            <strong>边框宽度：</strong>20px<br>
+            <strong>Padding宽度：</strong>40px
+        </div>
+        <div class="display-wrapper">
+            <div class="display-area" id="displayArea"></div>
+        </div>
+        
+        <div class="btn-group-container">
+            <button class="origin-btn active" data-origin="border-box" data-label="border-box">border-box</button>
+            <button class="origin-btn" data-origin="padding-box" data-label="padding-box">padding-box</button>
+            <button class="origin-btn" data-origin="content-box" data-label="content-box">content-box</button>
+        </div>
+        
+        <div class="current-code" id="currentCode">
+            <code>background-origin: border-box;</code>
+        </div>
+    </div>
+
+    <script>
+        const displayArea = document.getElementById('displayArea');
+        const currentCode = document.getElementById('currentCode');
+        const buttons = document.querySelectorAll('.origin-btn');
+
+        // 默认设置为 border-box
+        displayArea.style.backgroundOrigin = 'border-box';
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const origin = this.getAttribute('data-origin');
+                const label = this.getAttribute('data-label');
+                
+                // 更新显示区域
+                displayArea.style.backgroundOrigin = origin;
+                
+                // 更新代码显示
+                currentCode.innerHTML = `<code>background-origin: ${label};</code>`;
+                
+                // 更新按钮状态
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

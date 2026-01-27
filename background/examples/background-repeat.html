@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-repeat 案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 展示区域包装器 */
+        .display-wrapper {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            margin: 30px auto;
+            padding: 0;
+        }
+
+        .display-area {
+            width: 500px;
+            height: 350px;
+            border-radius: 8px;
+            background-image: url('images/moon.jpg');
+            background-size: 100px 100px;
+            background-position: center center;
+            background-color: #000000;
+            position: relative;
+            transition: background-repeat 0.3s ease;
+            margin: 0 auto;
+            border: 2px solid #47a637;
+        }
+
+        /* 尺寸说明 */
+        .size-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(71, 166, 55, 0.1);
+            border: 1px solid #47a637;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #2d6a1f;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .size-info strong {
+            color: #47a637;
+        }
+
+        /* 按钮组容器 - 水平排列在展示区域下方 */
+        .btn-group-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .repeat-btn {
+            padding: 12px 20px;
+            background: #47a637;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+        }
+
+        .repeat-btn:hover {
+            background: #3d8b2e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(71, 166, 55, 0.3);
+        }
+
+        .repeat-btn.active {
+            background: #2d6a1f;
+            box-shadow: 0 0 0 3px rgba(71, 166, 55, 0.3);
+        }
+
+        .current-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px auto;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+        }
+
+        .current-code code {
+            color: #47a637;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 尺寸说明 -->
+        <div class="size-info">
+            <strong>展示区域：</strong>500px × 350px<br>
+            <strong>背景图片：</strong>200px × 200px<br>
+            <strong>图片尺寸：</strong>100px × 100px
+        </div>
+        <div class="display-wrapper">
+            <div class="display-area" id="displayArea"></div>
+        </div>
+        
+        <div class="btn-group-container">
+            <button class="repeat-btn active" data-repeat="repeat" data-label="repeat">repeat</button>
+            <button class="repeat-btn" data-repeat="repeat-x" data-label="repeat-x">repeat-x</button>
+            <button class="repeat-btn" data-repeat="repeat-y" data-label="repeat-y">repeat-y</button>
+            <button class="repeat-btn" data-repeat="no-repeat" data-label="no-repeat">no-repeat</button>
+            <button class="repeat-btn" data-repeat="space" data-label="space">space</button>
+            <button class="repeat-btn" data-repeat="round" data-label="round">round</button>
+        </div>
+        
+        <div class="current-code" id="currentCode">
+            <code>background-repeat: repeat;</code>
+        </div>
+    </div>
+
+    <script>
+        const displayArea = document.getElementById('displayArea');
+        const currentCode = document.getElementById('currentCode');
+        const buttons = document.querySelectorAll('.repeat-btn');
+
+        // 默认设置为 repeat
+        displayArea.style.backgroundRepeat = 'repeat';
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const repeat = this.getAttribute('data-repeat');
+                const label = this.getAttribute('data-label');
+                
+                // 更新显示区域
+                displayArea.style.backgroundRepeat = repeat;
+                
+                // 更新代码显示
+                currentCode.innerHTML = `<code>background-repeat: ${label};</code>`;
+                
+                // 更新按钮状态
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

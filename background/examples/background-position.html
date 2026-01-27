@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-position 案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 展示区域包装器 */
+        .display-wrapper {
+            position: relative;
+            width: 350px;
+            height: 270px;
+            margin: 80px auto;
+            padding: 0;
+        }
+
+        .display-area {
+            width: 350px;
+            height: 270px;
+            border-radius: 8px;
+            background-image: url('images/star.png');
+            background-repeat: no-repeat;
+            background-color: #1a4d2e;
+            position: relative;
+            transition: background-position 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .current-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px auto;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+        }
+
+        .current-code code {
+            color: #47a637;
+            font-weight: bold;
+        }
+
+        /* 按钮组容器 - 绝对定位在展示区域外侧 */
+        .btn-group-container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        /* 左上角按钮组 */
+        .btn-group-top-left {
+            top: -70px;
+            left: 0;
+            transform: translateX(calc(-100% - 10px));
+        }
+
+        /* 右上角按钮组 */
+        .btn-group-top-right {
+            top: -70px;
+            right: 0;
+            transform: translateX(calc(100% + 10px));
+        }
+
+        /* 居中按钮组 */
+        .btn-group-center {
+            top: 50%;
+            right: 0;
+            transform: translate(calc(100% + 10px), -50%);
+        }
+
+        /* 左下角按钮组 */
+        .btn-group-bottom-left {
+            bottom: 0;
+            left: 0;
+            transform: translate(calc(-100% - 10px), calc(100% - 30px));
+        }
+
+        /* 右下角按钮组 */
+        .btn-group-bottom-right {
+            bottom: 0;
+            right: 0;
+            transform: translate(calc(100% + 10px), calc(100% - 30px));
+        }
+
+        .position-btn {
+            padding: 8px 14px;
+            background: #47a637;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+        }
+
+        .position-btn:hover {
+            background: #3d8b2e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(71, 166, 55, 0.3);
+        }
+
+        .position-btn.active {
+            background: #2d6a1f;
+            box-shadow: 0 0 0 3px rgba(71, 166, 55, 0.3);
+        }
+
+        /* 尺寸说明 */
+        .size-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(71, 166, 55, 0.1);
+            border: 1px solid #47a637;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #2d6a1f;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .size-info strong {
+            color: #47a637;
+        }
+
+        /* 第二个示例：图片大于容器 */
+        .container-large-image {
+            position: relative;
+            max-width: 1200px;
+            margin: 60px auto 0;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .display-wrapper-large {
+            position: relative;
+            width: 280px;
+            height: 200px;
+            margin: 80px auto;
+            padding: 0;
+        }
+
+        .display-area-large {
+            width: 280px;
+            height: 200px;
+            border-radius: 8px;
+            background-image: url('images/lizard.png');
+            background-repeat: no-repeat;
+            background-color: #1a4d2e;
+            position: relative;
+            transition: background-position 0.3s ease;
+            margin: 0 auto;
+            border: 3px solid #ff6b6b;
+        }
+
+        .size-info-large {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid #ff6b6b;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #c92a2a;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .size-info-large strong {
+            color: #ff6b6b;
+        }
+
+        .btn-group-container-large {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            z-index: 10;
+        }
+
+        .position-btn-large {
+            padding: 8px 14px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+        }
+
+        .position-btn-large:hover {
+            background: #ee5a52;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .position-btn-large.active {
+            background: #c92a2a;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+        }
+
+        .current-code-large {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px auto;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+        }
+
+        .current-code-large code {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 尺寸说明 -->
+        <div class="size-info">
+            <strong>展示区域：</strong>350px × 270px<br>
+            <strong>背景图片：</strong>30px × 30px
+        </div>
+        <div class="display-wrapper">
+            <!-- 左上角按钮组 -->
+            <div class="btn-group-container btn-group-top-left">
+                <button class="position-btn" data-position="0 0" data-label="0 0">0 0</button>
+                <button class="position-btn" data-position="0% 0%" data-label="0% 0%">0% 0%</button>
+                <button class="position-btn" data-position="left top" data-label="left top">left top</button>
+            </div>
+
+            <!-- 右上角按钮组 -->
+            <div class="btn-group-container btn-group-top-right">
+                <button class="position-btn" data-position="320px 0" data-label="320px 0">320px 0</button>
+                <button class="position-btn" data-position="100% 0%" data-label="100% 0%">100% 0%</button>
+                <button class="position-btn" data-position="right top" data-label="right top">right top</button>
+            </div>
+
+            <!-- 居中按钮组 -->
+            <div class="btn-group-container btn-group-center">
+                <button class="position-btn active" data-position="160px 120px" data-label="160px 120px">160px 120px</button>
+                <button class="position-btn" data-position="50% 50%" data-label="50% 50%">50% 50%</button>
+                <button class="position-btn" data-position="center center" data-label="center center">center center</button>
+            </div>
+
+            <!-- 左下角按钮组 -->
+            <div class="btn-group-container btn-group-bottom-left">
+                <button class="position-btn" data-position="0 240px" data-label="0 240px">0 240px</button>
+                <button class="position-btn" data-position="0% 100%" data-label="0% 100%">0% 100%</button>
+                <button class="position-btn" data-position="left bottom" data-label="left bottom">left bottom</button>
+            </div>
+
+            <!-- 右下角按钮组 -->
+            <div class="btn-group-container btn-group-bottom-right">
+                <button class="position-btn" data-position="320px 240px" data-label="320px 240px">320px 240px</button>
+                <button class="position-btn" data-position="100% 100%" data-label="100% 100%">100% 100%</button>
+                <button class="position-btn" data-position="right bottom" data-label="right bottom">right bottom</button>
+            </div>
+
+            <div class="display-area" id="displayArea"></div>
+        </div>
+        
+        <div class="current-code" id="currentCode">
+            <code>background-position: center center;</code>
+        </div>
+    </div>
+
+    <script>
+        const displayArea = document.getElementById('displayArea');
+        const currentCode = document.getElementById('currentCode');
+        const buttons = document.querySelectorAll('.position-btn');
+
+        // 默认设置为居中
+        displayArea.style.backgroundPosition = 'center center';
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const position = this.getAttribute('data-position');
+                const label = this.getAttribute('data-label');
+                
+                // 更新显示区域
+                displayArea.style.backgroundPosition = position;
+                
+                // 更新代码显示
+                currentCode.innerHTML = `<code>background-position: ${label};</code>`;
+                
+                // 更新按钮状态
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+    <!-- 第二个示例：图片大于容器 -->
+    <div class="container-large-image">
+        <!-- 尺寸说明 -->
+        <div class="size-info-large">
+            <strong>展示区域：</strong>280px × 200px<br>
+            <strong>背景图片：</strong>320px × 229px<br>
+            <strong>⚠️ 图片大于容器</strong>
+        </div>
+        <div class="display-wrapper-large">
+            <div class="display-area-large" id="displayAreaLarge"></div>
+        </div>
+        
+        <!-- 按钮组 -->
+        <div class="btn-group-container-large">
+            <button class="position-btn-large" data-position-large="0% 0%" data-label-large="0% 0%">0% 0%</button>
+            <button class="position-btn-large" data-position-large="20% 20%" data-label-large="20% 20%">20% 20%</button>
+            <button class="position-btn-large active" data-position-large="50% 50%" data-label-large="50% 50%">50% 50%</button>
+            <button class="position-btn-large" data-position-large="100% 100%" data-label-large="100% 100%">100% 100%</button>
+        </div>
+        
+        <div class="current-code-large" id="currentCodeLarge">
+            <code>background-position: 50% 50%;</code>
+        </div>
+    </div>
+
+    <script>
+        const displayAreaLarge = document.getElementById('displayAreaLarge');
+        const currentCodeLarge = document.getElementById('currentCodeLarge');
+        const buttonsLarge = document.querySelectorAll('.position-btn-large');
+
+        // 默认设置为居中
+        displayAreaLarge.style.backgroundPosition = '50% 50%';
+
+        buttonsLarge.forEach(button => {
+            button.addEventListener('click', function() {
+                const position = this.getAttribute('data-position-large');
+                const label = this.getAttribute('data-label-large');
+                
+                // 更新显示区域
+                displayAreaLarge.style.backgroundPosition = position;
+                
+                // 更新代码显示
+                currentCodeLarge.innerHTML = `<code>background-position: ${label};</code>`;
+                
+                // 更新按钮状态
+                buttonsLarge.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-attachment 案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            /* 背景图片设置在 body 上 */
+            background-image: url('images/work.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            transition: background-attachment 0.3s ease;
+        }
+
+        /* 内容区域 */
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.6);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            min-height: 200vh; /* 足够的高度用于滚动 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #47a637;
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #47a637;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* 悬浮按钮 */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            background: #47a637;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(71, 166, 55, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-family: 'Courier New', monospace;
+        }
+
+        .floating-btn:hover {
+            background: #3d8b2e;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(71, 166, 55, 0.5);
+        }
+
+        .floating-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* 代码显示区域 */
+        .code-display {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(45, 45, 45, 0.95);
+            color: #f8f8f2;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 999;
+            min-width: 250px;
+        }
+
+        .code-display code {
+            color: #47a637;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码显示区域 -->
+    <div class="code-display" id="codeDisplay">
+        <code>background-attachment: scroll;</code>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="content-wrapper">
+        <div class="section">
+            <h2>scroll（默认值）</h2>
+            <p>当设置为 <code>scroll</code> 时，背景图片会随页面内容一起滚动。这是默认行为。</p>
+            <p>向下滚动页面，可以看到背景图片会随着页面内容一起移动。</p>
+        </div>
+
+        <div class="section">
+            <h2>fixed（固定）</h2>
+            <p>当设置为 <code>fixed</code> 时，背景图片会固定在视口中，不随页面内容滚动。</p>
+            <p><strong>⚠️ 注意</strong>：<code>fixed</code> 值仅在 <code>html</code> 和 <code>body</code> 标签上生效，其他标签不生效。</p>
+            <p>点击按钮切换到 <code>fixed</code> 后，向下滚动页面，可以看到背景图片保持固定不动。</p>
+        </div>
+
+        <div class="section">
+            <h2>视觉效果对比</h2>
+            <p><strong>scroll</strong>：背景图随页面滚动，适合普通背景效果。</p>
+            <p><strong>fixed</strong>：背景图固定不动，可以创建视差滚动效果或全屏固定背景。</p>
+        </div>
+
+        <div class="section">
+            <h2>更多内容</h2>
+            <p>继续向下滚动，观察背景图片的行为变化。</p>
+            <p>这段内容用于增加页面高度，让你可以更好地观察背景图片的滚动效果。</p>
+        </div>
+
+        <div class="section">
+            <h2>应用场景</h2>
+            <p><code>background-attachment: fixed</code> 常用于：</p>
+            <ul style="margin-left: 20px; color: #666;">
+                <li>创建视差滚动效果</li>
+                <li>全屏固定背景</li>
+                <li>增强视觉层次感</li>
+            </ul>
+            <p style="margin-top: 15px;">但需要注意浏览器兼容性和性能影响。</p>
+        </div>
+
+        <div class="section">
+            <h2>继续滚动</h2>
+            <p>继续向下滚动，观察背景图片在不同 attachment 值下的表现。</p>
+        </div>
+
+        <div class="section">
+            <h2>最后一段</h2>
+            <p>这是页面的最后一段内容，用于确保页面有足够的高度来展示滚动效果。</p>
+            <p>现在你可以点击右下角的按钮切换不同的 background-attachment 值，然后滚动页面观察效果。</p>
+        </div>
+    </div>
+
+    <!-- 悬浮切换按钮 -->
+    <button class="floating-btn" id="toggleBtn">切换到 fixed</button>
+
+    <script>
+        const body = document.body;
+        const toggleBtn = document.getElementById('toggleBtn');
+        const codeDisplay = document.getElementById('codeDisplay');
+        
+        let currentAttachment = 'scroll';
+
+        toggleBtn.addEventListener('click', function() {
+            if (currentAttachment === 'scroll') {
+                currentAttachment = 'fixed';
+                body.style.backgroundAttachment = 'fixed';
+                toggleBtn.textContent = '切换到 scroll';
+                codeDisplay.innerHTML = '<code>background-attachment: fixed;</code>';
+            } else {
+                currentAttachment = 'scroll';
+                body.style.backgroundAttachment = 'scroll';
+                toggleBtn.textContent = '切换到 fixed';
+                codeDisplay.innerHTML = '<code>background-attachment: scroll;</code>';
+            }
+        });
+    </script>
+</body>
+</html>
