@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS background-image 知识分享</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
+    
+    <style>
+        .reveal .slides section {
+            text-align: left;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: #47a637;
+        }
+        .reveal code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #e83e8c;
+        }
+        .reveal pre code {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .reveal table {
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        .reveal table th,
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal table th {
+            background-color: #47a637;
+            color: white;
+        }
+        .reveal .demo-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #47a637;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .reveal .demo-link:hover {
+            background-color: #3a8a2d;
+        }
+        .reveal .warning {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .reveal .formula {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-left: 4px solid #47a637;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 封面 -->
+            <section>
+                <h1>CSS<br><span style="font-size: 0.7em;">background-image</span></h1>
+                <h2>知识分享</h2>
+            </section>
+
+            <!-- 目录 -->
+            <section>
+                <h2>📋 目录</h2>
+                <ol style="font-size: 1.2em; line-height: 2;">
+                    <li>核心属性详解</li>
+                    <li>多背景图实战</li>
+                    <li>最佳实践</li>
+                </ol>
+            </section>
+
+            <!-- background-position 介绍 -->
+            <section>
+                <section>
+                    <h2>background-position</h2>
+                    <p style="font-size: 1.2em;">设置背景图片的位置</p>
+                </section>
+
+                <section>
+                    <h3>三种类型的值</h3>
+                    <ol>
+                        <li><strong>数值</strong>（可以是负值）</li>
+                        <li><strong>百分比</strong></li>
+                        <li><strong>关键词</strong></li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h3>1. 数值</h3>
+                    <p>直接指定背景图片的左上角相对于容器左上角的偏移量</p>
+                    <pre><code class="css">background-position: 10px 20px;  /* 向右10px，向下20px */
+background-position: -10px -20px; /* 向左10px，向上20px */</code></pre>
+                </section>
+
+                <section>
+                    <h3>2. 百分比</h3>
+                    <pre><code class="css">background-position: 50% 50%;  /* 居中 */
+background-position: 0% 0%;     /* 左上角 */
+background-position: 100% 100%; /* 右下角 */</code></pre>
+                </section>
+
+                <section>
+                    <h3>3. 关键词</h3>
+                    <pre><code class="css">background-position: left top;     /* 左上角 */
+background-position: center center; /* 居中 */
+background-position: right bottom; /* 右下角 */</code></pre>
+                </section>
+
+                <section>
+                    <h3>百分比值的计算方式</h3>
+                    <div class="formula">
+                        <p><strong>计算公式：</strong></p>
+                        <p>(容器尺寸 - 背景图片尺寸) × 百分比值</p>
+                    </div>
+                    <ul>
+                        <li>水平位置：(容器宽度 - 背景图片宽度) × 百分比值</li>
+                        <li>垂直位置：(容器高度 - 背景图片高度) × 百分比值</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>百分比值示例说明</h3>
+                    <ul>
+                        <li><code>0% 0%</code>：背景图片的左上角对齐容器的左上角</li>
+                        <li><code>50% 50%</code>：背景图片的中心点对齐容器的中心点（居中）</li>
+                        <li><code>100% 100%</code>：背景图片的右下角对齐容器的右下角</li>
+                    </ul>
+                    <p class="warning">⚠️ 注意：当背景图片尺寸大于容器尺寸时，百分比值会导致图片向相反方向偏移，就好像设置了负值。</p>
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-position.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- background-origin -->
+            <section>
+                <section>
+                    <h2>background-origin</h2>
+                    <p style="font-size: 1.2em;">设置背景图片定位的起点</p>
+                    <p style="color: #666;">（即 background-position 的参考原点）</p>
+                </section>
+
+                <section>
+                    <h3>属性值</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>padding-box</code></td>
+                                <td>默认值，从 padding 的外边缘（border 的内边缘）开始</td>
+                            </tr>
+                            <tr>
+                                <td><code>border-box</code></td>
+                                <td>从 border 的外边缘开始</td>
+                            </tr>
+                            <tr>
+                                <td><code>content-box</code></td>
+                                <td>从 content 的外边缘（padding 内边缘）开始</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="warning">⚠️ 注意：这只是更改背景图片左上角的参考位置，而不会裁剪图片（使用 background-clip 实现）。</p>
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-origin.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- background-clip -->
+            <section>
+                <section>
+                    <h2>background-clip</h2>
+                    <p style="font-size: 1.2em;">设置背景图片的裁剪区域</p>
+                </section>
+
+                <section>
+                    <h3>属性值</h3>
+                    <table style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>border-box</code></td>
+                                <td>默认值，背景图超出边框的部分被裁剪</td>
+                            </tr>
+                            <tr>
+                                <td><code>padding-box</code></td>
+                                <td>背景图超出 padding 的部分被裁剪</td>
+                            </tr>
+                            <tr>
+                                <td><code>content-box</code></td>
+                                <td>背景图超出内容区域的部分被裁剪</td>
+                            </tr>
+                            <tr>
+                                <td><code>text</code></td>
+                                <td>背景图被裁剪到前景文本内，需要配合 <code>color: transparent</code> 使用</td>
+                            </tr>
+                            <tr>
+                                <td><code>border-area</code></td>
+                                <td>背景图被裁剪到边框绘制的区域内（浏览器支持程度低）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>注意事项（1）</h3>
+                    <p class="warning" style="font-size: 1.1em; line-height: 1.8;">⚠️ 注意：背景图片是从内部补白（padding）边缘的左上角起到元素边框（border）的右下角边缘止；当 background-repeat 设置为 repeat 时，background-position 的起始点是从元素的内部空白（padding）外边缘开始的。</p>
+                </section>
+
+                <section>
+                    <h3>注意事项（2）</h3>
+                    <p class="warning" style="font-size: 1.1em; line-height: 1.8;">⚠️ 注意：<code>border-area</code> 值会将背景绘制在（裁剪到）边框绘制的区域内，但是目前浏览器支持程度低，真实效果为：</p>
+                </section>
+
+                <section>
+                    <h3>border-area 效果图</h3>
+                    <img src="https://zhangdazongwei.github.io/css-study/background/examples/images/border-area.jpg" 
+                         alt="border-area 效果" style="max-width: 90%; margin: 20px auto; display: block;">
+                </section>
+
+                <section>
+                    <h3>border-area 浏览器支持</h3>
+                    <img src="https://zhangdazongwei.github.io/css-study/background/examples/images/canuse-border-area.jpg" 
+                         alt="border-area 浏览器支持" style="max-width: 90%; margin: 20px auto; display: block;">
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-clip.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- background-size -->
+            <section>
+                <section>
+                    <h2>background-size</h2>
+                    <p style="font-size: 1.2em;">设置背景图片的尺寸</p>
+                </section>
+
+                <section>
+                    <h3>属性值</h3>
+                    <table style="font-size: 0.8em;">
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>auto</code></td>
+                                <td>保持原始尺寸或按比例缩放</td>
+                                <td><code>background-size: auto;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;length&gt;</code></td>
+                                <td>具体数值（px、em等）</td>
+                                <td><code>background-size: 100px 50px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;percentage&gt;</code></td>
+                                <td>相对于容器的百分比</td>
+                                <td><code>background-size: 50% 50%;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>cover</code></td>
+                                <td>放大以铺满整个容器，可能裁剪</td>
+                                <td><code>background-size: cover;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>contain</code></td>
+                                <td>缩放以适应容器，保持比例</td>
+                                <td><code>background-size: contain;</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>auto 的详细说明</h3>
+                    <ul>
+                        <li><code>background-size: auto</code>：保持图片的固有尺寸（原始尺寸）</li>
+                        <li><code>background-size: auto 50px</code>：高度固定50px，宽度按比例自动计算</li>
+                        <li><code>background-size: 100px auto</code>：宽度固定100px，高度按比例自动计算</li>
+                    </ul>
+                    <p class="warning">⚠️ 注意：如果背景图片没有固定宽高，设置 auto 时就相当于 contain。</p>
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-size.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- background-repeat -->
+            <section>
+                <section>
+                    <h2>background-repeat</h2>
+                    <p style="font-size: 1.2em;">控制背景图片的重复方式</p>
+                </section>
+
+                <section>
+                    <h3>基本属性值（1/2）</h3>
+                    <table style="font-size: 0.9em;">
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>repeat</code></td>
+                                <td>默认值，X轴和Y轴同时平铺</td>
+                                <td><code>background-repeat: repeat;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>repeat-x</code></td>
+                                <td>仅X轴平铺</td>
+                                <td><code>background-repeat: repeat-x;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>repeat-y</code></td>
+                                <td>仅Y轴平铺</td>
+                                <td><code>background-repeat: repeat-y;</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>基本属性值（2/2）</h3>
+                    <table style="font-size: 0.9em;">
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>no-repeat</code></td>
+                                <td>不重复</td>
+                                <td><code>background-repeat: no-repeat;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>space</code></td>
+                                <td>重复时留空白，保持图片宽高比</td>
+                                <td><code>background-repeat: space;</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>round</code></td>
+                                <td>重复时拉伸图片以填满空间</td>
+                                <td><code>background-repeat: round;</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>space 值详解</h3>
+                    <p>背景图片重复时<strong>均匀分布</strong>，在重复的图片之间留出空白</p>
+                    <ul>
+                        <li>图片会尽可能多地重复而不被裁剪</li>
+                        <li><strong>第一张和最后一张图片被固定在元素的两侧</strong></li>
+                        <li><code>background-position</code> 属性会被忽略</li>
+                        <li>图片不会被裁剪，保持原始宽高比</li>
+                    </ul>
+                    <p><strong>使用场景</strong>：适合需要保持图片完整显示，且可以接受留白的场景。</p>
+                </section>
+
+                <section>
+                    <h3>round 值详解</h3>
+                    <p>重复的背景图片<strong>拉伸</strong>以填满整个可用空间</p>
+                    <ul>
+                        <li>随着允许的空间增大，重复的图片会拉伸（不留空隙）</li>
+                        <li><strong>这是唯一一个可能导致背景图片宽高比变形的值</strong></li>
+                        <li>图片会被拉伸以填满整个区域</li>
+                        <li>可能会改变图片的宽高比，导致图片变形</li>
+                    </ul>
+                    <p><strong>使用场景</strong>：适合需要完全填满背景区域，且可以接受图片变形的场景。</p>
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-repeat.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- background-attachment -->
+            <section>
+                <section>
+                    <h2>background-attachment</h2>
+                    <p style="font-size: 1.2em;">设置背景图片的附着方式</p>
+                </section>
+
+                <section>
+                    <h3>属性值</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>值</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>scroll</code></td>
+                                <td>默认值，背景图随页面滚动</td>
+                            </tr>
+                            <tr>
+                                <td><code>fixed</code></td>
+                                <td>背景图固定不动（仅在 html 和 body 标签上生效）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>示例演示</h3>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-attachment.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- 多背景图 -->
+            <section>
+                <section>
+                    <h2>🎨 多背景图</h2>
+                    <p style="font-size: 1.2em;">在单一容器上使用多张背景图片</p>
+                </section>
+
+                <section>
+                    <h3>基本语法</h3>
+                    <pre><code class="css">.element {
+  background-image: 
+    url('./images/bg1.png'),
+    url('./images/bg2.png'),
+    url('./images/bg3.png');
+  
+  background-size: 
+    100px 100px,
+    200px 200px,
+    300px 300px;
+  
+  background-repeat: 
+    no-repeat,
+    repeat-x,
+    no-repeat;
+  
+  background-position: 
+    0 0,
+    100px 0,
+    right top;
+}</code></pre>
+                </section>
+
+                <section>
+                    <h3>重要规则</h3>
+                    <ol>
+                        <li><strong>层级关系</strong>：多张背景图按<strong>从下到上</strong>的顺序叠加显示
+                            <ul>
+                                <li>第一张图片在最底层</li>
+                                <li>最后一张图片在最顶层</li>
+                            </ul>
+                        </li>
+                        <li><strong>属性对应</strong>：
+                            <ul>
+                                <li><code>background-image</code> 必须设置多个值</li>
+                                <li>其他属性可以设置一个或多个值</li>
+                                <li>如果只有一个属性值，则所有背景图都应用相同的值</li>
+                            </ul>
+                        </li>
+                        <li><strong>逗号分隔</strong>：相邻背景之间必须使用逗号隔开</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h3>实战案例：自适应标题背景</h3>
+                    <p>创建一个标题背景，宽度随着内容变长。</p>
+                    <img src="https://zhangdazongwei.github.io/css-study/background/examples/images/prototype.jpg" 
+                         alt="自适应标题背景原型" style="max-width: 80%; margin: 20px 0;">
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/multi-background.html" 
+                       target="_blank" class="demo-link">查看在线示例 →</a>
+                </section>
+            </section>
+
+            <!-- 最佳实践 -->
+            <section>
+                <section>
+                    <h2>✅ 最佳实践</h2>
+                </section>
+
+                <section>
+                    <h3>1. 图片格式选择</h3>
+                    <table style="font-size: 0.75em;">
+                        <thead>
+                            <tr>
+                                <th>格式</th>
+                                <th>适用场景</th>
+                                <th>优点</th>
+                                <th>缺点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SVG</strong></td>
+                                <td>图标、简单图形</td>
+                                <td>矢量图，可缩放，文件小</td>
+                                <td>复杂图形可能较大</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PNG</strong></td>
+                                <td>需要透明背景</td>
+                                <td>支持透明，质量好</td>
+                                <td>文件较大</td>
+                            </tr>
+                            <tr>
+                                <td><strong>JPG</strong></td>
+                                <td>照片类背景</td>
+                                <td>文件小</td>
+                                <td>不支持透明</td>
+                            </tr>
+                            <tr>
+                                <td><strong>WebP</strong></td>
+                                <td>现代浏览器</td>
+                                <td>压缩率高，支持透明</td>
+                                <td>兼容性需考虑</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>2. 性能优化</h3>
+                    <ul>
+                        <li><strong>文件大小</strong>：单张背景图建议控制在 200KB 以内（移动端建议更小）</li>
+                        <li><strong>分辨率适配</strong>：
+                            <ul>
+                                <li>提供 <code>@2x</code>、<code>@3x</code> 版本用于 Retina 屏幕</li>
+                                <li>或使用 SVG 格式实现自适应缩放</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>3. 与设计师协作</h3>
+                    <p><strong>单张背景图（no-repeat）</strong>：</p>
+                    <ul>
+                        <li>图片尺寸应大于或等于容器尺寸</li>
+                        <li>如果使用 <code>cover</code>，图片比例应与容器比例匹配</li>
+                    </ul>
+                    <p><strong>重复背景图（repeat）</strong>：</p>
+                    <ul>
+                        <li>图片必须是<strong>无缝平铺</strong>的</li>
+                        <li>提供<strong>可重复的最小单元</strong></li>
+                        <li>确保边缘可以完美衔接</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>3. 与设计师协作（续）</h3>
+                    <p><strong>多背景图</strong>：</p>
+                    <ul>
+                        <li>提供每张图片的定位参考</li>
+                        <li>确保拼接处无缝衔接</li>
+                        <li>考虑不同屏幕尺寸下的显示效果</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- 结束页 -->
+            <section>
+                <h1>谢谢！</h1>
+                <p style="font-size: 1.2em; margin-top: 50px;">Q & A</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [ RevealHighlight ],
+            transition: 'slide',
+            controls: true,
+            progress: true,
+            center: false,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            embedded: false,
+            help: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoAnimate: true,
+            autoAnimateMatcher: null,
+            autoAnimateEasing: 'ease',
+            autoAnimateDuration: 1.0,
+            autoAnimateUnmatched: true,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            autoSlideMethod: null,
+            defaultTiming: null,
+            mouseWheel: false,
+            previewLinks: false,
+            postMessage: true,
+            postMessageEvents: false,
+            focusBodyOnPageVisibilityChange: true,
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            viewDistance: 3,
+            parallaxBackgroundImage: '',
+            parallaxBackgroundSize: '',
+            parallaxBackgroundRepeat: '',
+            parallaxBackgroundPosition: '',
+            parallaxBackgroundOpacity: null,
+            view: null,
+            width: 960,
+            height: 700,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 1.5
+        });
+    </script>
+</body>
+</html>
