@@ -462,6 +462,34 @@ background-position: right bottom; /* 右下角 */</code></pre>
                 </section>
             </section>
 
+            <!-- 思考 -->
+            <section>
+                <section>
+                    <h2>思考🤔</h2>
+                </section>
+
+                <section>
+                    <h3>需求场景</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">页面的尺寸由 <strong>216mm × 291mm</strong> 变为 <strong>191mm × 266mm</strong>，背景图应该如何适配？</p>
+                    <div style="margin-top: 40px;">
+                        <p style="font-size: 1.1em; margin-bottom: 20px;">可以考虑的方案：</p>
+                        <ul style="font-size: 1em; line-height: 2;">
+                            <li><code>background-size: contain</code> - 保持比例，完整显示</li>
+                            <li><code>background-size: cover</code> - 铺满容器，可能裁剪</li>
+                            <li><code>background-size: 100% 100%</code> - 拉伸填满，可能变形</li>
+                            <li><code>background-size: cover</code> + <code>background-position</code> - 控制显示区域</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>在线实验</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 30px;">在 playground 中尝试不同的方案，找到最适合的适配方式：</p>
+                    <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-playground.html" 
+                       target="_blank" class="demo-link">打开 Playground 实验 →</a>
+                </section>
+            </section>
+
             <!-- 多背景图 -->
             <section>
                 <section>
