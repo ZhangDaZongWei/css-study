@@ -14,7 +14,7 @@
 
 ### background-position
 
-设置背景图片的位置。
+设置背景图片的位置，总是以容器的左上角为坐标原点对背景图片进行定位。
 
 #### 三种类型的值
 
@@ -26,16 +26,18 @@
 
 2. **百分比**
    ```css
-   background-position: 50% 50%;  /* 居中 */
-   background-position: 0% 0%;     /* 左上角 */
-   background-position: 100% 100%; /* 右下角 */
+   background-position: 50% 50%;  /* 居中，背景图片正中心点与容器正中心点对齐 */
+   background-position: 0% 0%;     /* 左上角，背景图片左上角与容器左上角对齐 */
+   background-position: 100% 100%; /* 右下角，背景图片右下角与容器右下角对齐 */
    ```
 
 3. **关键词**
    ```css
    background-position: left top;     /* 左上角 */
+   background-position: top left /* ? */
    background-position: center center; /* 居中 */
    background-position: right bottom; /* 右下角 */
+   background-position: bottom right; /* ? */
    ```
 
 #### 百分比值的计算方式
@@ -49,6 +51,9 @@
 - `0% 0%`：背景图片的左上角对齐容器的左上角
 - `50% 50%`：背景图片的中心点对齐容器的中心点（居中）
 - `100% 100%`：背景图片的右下角对齐容器的右下角
+
+
+**⚠️ 注意**：背景图片是从内部补白（padding）边缘的左上角起到元素边框（border）的右下角边缘止；当background-repeate设置为repeate时，background-position的起始点是从元素的内部空白（padding）外边缘开始的。
 
 **⚠️ 注意**：当背景图片尺寸大于容器尺寸时，百分比值会导致图片向相反方向偏移，就好像设置了负值。
 
@@ -79,8 +84,6 @@
 | `content-box` | 背景图超出内容区域的部分被裁剪 |
 | `text` | 背景图被裁剪到前景文本内，需要配合 `color: transparent` 使用才能看到效果 |
 | `border-area` | 背景图被裁剪到边框绘制的区域内，考虑 `border-width` 和 `border-style`，但忽略 `border-color` 引入的透明度 |
-
-**⚠️ 注意**：背景图片是从内部补白（padding）边缘的左上角起到元素边框（border）的右下角边缘止；当background-repeate设置为repeate时，background-position的起始点是从元素的内部空白（padding）外边缘开始的。
 
 **⚠️ 注意**：`border-area` 值会将背景绘制在（裁剪到）边框绘制的区域内，但是目前浏览器支持程度低，真实效果为：
 

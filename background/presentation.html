@@ -91,6 +91,7 @@
                 <section>
                     <h2>background-position</h2>
                     <p style="font-size: 1.2em;">设置背景图片的位置</p>
+                    <p style="color: #666; margin-top: 10px;">总是以容器的左上角为坐标原点对背景图片进行定位</p>
                 </section>
 
                 <section>
@@ -111,16 +112,18 @@ background-position: -10px -20px; /* 向左10px，向上20px */</code></pre>
 
                 <section>
                     <h3>2. 百分比</h3>
-                    <pre><code class="css">background-position: 50% 50%;  /* 居中 */
-background-position: 0% 0%;     /* 左上角 */
-background-position: 100% 100%; /* 右下角 */</code></pre>
+                    <pre><code class="css">background-position: 50% 50%;  /* 居中，背景图片正中心点与容器正中心点对齐 */
+background-position: 0% 0%;     /* 左上角，背景图片左上角与容器左上角对齐 */
+background-position: 100% 100%; /* 右下角，背景图片右下角与容器右下角对齐 */</code></pre>
                 </section>
 
                 <section>
                     <h3>3. 关键词</h3>
                     <pre><code class="css">background-position: left top;     /* 左上角 */
+background-position: top left;     /* ? */
 background-position: center center; /* 居中 */
-background-position: right bottom; /* 右下角 */</code></pre>
+background-position: right bottom; /* 右下角 */
+background-position: bottom right;  /* ? */</code></pre>
                 </section>
 
                 <section>
@@ -142,7 +145,12 @@ background-position: right bottom; /* 右下角 */</code></pre>
                         <li><code>50% 50%</code>：背景图片的中心点对齐容器的中心点（居中）</li>
                         <li><code>100% 100%</code>：背景图片的右下角对齐容器的右下角</li>
                     </ul>
-                    <p class="warning">⚠️ 注意：当背景图片尺寸大于容器尺寸时，百分比值会导致图片向相反方向偏移，就好像设置了负值。</p>
+                </section>
+
+                <section>
+                    <h3>注意事项</h3>
+                    <p class="warning" style="font-size: 1em; line-height: 1.8;">⚠️ 注意：背景图片是从内部补白（padding）边缘的左上角起到元素边框（border）的右下角边缘止；当 background-repeat 设置为 repeat 时，background-position 的起始点是从元素的内部空白（padding）外边缘开始的。</p>
+                    <p class="warning" style="font-size: 1em; line-height: 1.8; margin-top: 15px;">⚠️ 注意：当背景图片尺寸大于容器尺寸时，百分比值会导致图片向相反方向偏移，就好像设置了负值。</p>
                 </section>
 
                 <section>
@@ -236,12 +244,7 @@ background-position: right bottom; /* 右下角 */</code></pre>
                 </section>
 
                 <section>
-                    <h3>注意事项（1）</h3>
-                    <p class="warning" style="font-size: 1.1em; line-height: 1.8;">⚠️ 注意：背景图片是从内部补白（padding）边缘的左上角起到元素边框（border）的右下角边缘止；当 background-repeat 设置为 repeat 时，background-position 的起始点是从元素的内部空白（padding）外边缘开始的。</p>
-                </section>
-
-                <section>
-                    <h3>注意事项（2）</h3>
+                    <h3>注意事项</h3>
                     <p class="warning" style="font-size: 1.1em; line-height: 1.8;">⚠️ 注意：<code>border-area</code> 值会将背景绘制在（裁剪到）边框绘制的区域内，但是目前浏览器支持程度低，真实效果为：</p>
                 </section>
 
@@ -471,22 +474,8 @@ background-position: right bottom; /* 右下角 */</code></pre>
                 <section>
                     <h3>需求场景</h3>
                     <p style="font-size: 1.2em; line-height: 1.8;">页面的尺寸由 <strong>216mm × 291mm</strong> 变为 <strong>191mm × 266mm</strong>，背景图应该如何适配？</p>
-                    <div style="margin-top: 40px;">
-                        <p style="font-size: 1.1em; margin-bottom: 20px;">可以考虑的方案：</p>
-                        <ul style="font-size: 1em; line-height: 2;">
-                            <li><code>background-size: contain</code> - 保持比例，完整显示</li>
-                            <li><code>background-size: cover</code> - 铺满容器，可能裁剪</li>
-                            <li><code>background-size: 100% 100%</code> - 拉伸填满，可能变形</li>
-                            <li><code>background-size: cover</code> + <code>background-position</code> - 控制显示区域</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>在线实验</h3>
-                    <p style="font-size: 1.1em; margin-bottom: 30px;">在 playground 中尝试不同的方案，找到最适合的适配方式：</p>
                     <a href="https://zhangdazongwei.github.io/css-study/background/examples/background-playground.html" 
-                       target="_blank" class="demo-link">打开 Playground 实验 →</a>
+                       target="_blank" class="demo-link">查看在线示例 →</a>
                 </section>
             </section>
 
